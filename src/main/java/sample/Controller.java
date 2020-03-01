@@ -11,11 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import leijnse.info.AcdpAccessor;
+import leijnse.info.CopyDirectory;
 import leijnse.info.ImageRow;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class Controller {
     DirectoryChooser directoryChooser = new DirectoryChooser();
     File choosedAcdpDirectory =new File("dummy");
     File choosedImageDirectory =new File("dummy");
+    File choosedEmptyImageDirectory =new File("dummy");
+
 
 
     @FXML
@@ -68,6 +72,46 @@ public class Controller {
         lblImageDirectory.setText(myChoosenDirectory);
 
     }
+
+
+
+    @FXML
+    public void cmdDirectoryNamesClicked(Event e){
+        System.out.println("Button cmdDirectoryNamesClicked clicked");
+        CopyDirectory copyDirectory = new CopyDirectory();
+        String myChoosenImageDirectory = choosedImageDirectory.toPath().toString();
+        String myChoosenDirectory = choosedAcdpDirectory.toPath().toString() + "/layout";
+        copyDirectory.copyFilesDirectoryNameToACDP(myChoosenImageDirectory,myChoosenDirectory);
+        AcdpAccessor acdpAccessor = new AcdpAccessor();
+        listItems.getItems().clear();
+        listItems.refresh();
+
+        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", BigInteger.valueOf(0),txtSearchKeywords.getText());
+        imageWithSomeKeywords.forEach(imageRow -> {
+            listItems.getItems().add(imageRow.getDirectory()+"/"+imageRow.getFile()+", keywords: " + imageRow.getIptcKeywords());
+        });
+        listItems.refresh();
+        lblClickedImage.setText("");
+        Node node = null;
+        lblClickedImage.setGraphic(node);
+
+
+    }
+    @FXML
+    public void cmdInitializeACDPClicked(Event e) throws IOException {
+        System.out.println("Button cmdInitializeACDPClicked clicked");
+        AcdpAccessor acdpAccessor = new AcdpAccessor();
+
+
+        String myChoosenDirectory = choosedAcdpDirectory.toPath().toString();
+        choosedEmptyImageDirectory = directoryChooser.showDialog(new Stage());
+        String myChoosenEmptyImageDirectory = choosedEmptyImageDirectory.toPath().toString();
+        acdpAccessor.copyLayout(myChoosenEmptyImageDirectory,myChoosenDirectory );
+
+    }
+
+
+
 
     @FXML
     public void startSearch(Event e){
