@@ -97,6 +97,30 @@ public class Controller {
 
 
     }
+
+
+    @FXML
+    public void cmdExifDataClicked(Event e){
+        System.out.println("Button cmdExifDataClicked clicked");
+        CopyDirectory copyDirectory = new CopyDirectory();
+        String myChoosenImageDirectory = choosedImageDirectory.toPath().toString();
+        String myChoosenDirectory = choosedAcdpDirectory.toPath().toString() + "/layout";
+        copyDirectory.copyFilesToACDP(myChoosenImageDirectory,myChoosenDirectory);
+        AcdpAccessor acdpAccessor = new AcdpAccessor();
+        listItems.getItems().clear();
+        listItems.refresh();
+
+        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", BigInteger.valueOf(0),txtSearchKeywords.getText());
+        imageWithSomeKeywords.forEach(imageRow -> {
+            listItems.getItems().add(imageRow.getDirectory()+"/"+imageRow.getFile()+", keywords: " + imageRow.getIptcKeywords());
+        });
+        listItems.refresh();
+        lblClickedImage.setText("");
+        Node node = null;
+        lblClickedImage.setGraphic(node);
+
+
+    }
     @FXML
     public void cmdInitializeACDPClicked(Event e) throws IOException {
         System.out.println("Button cmdInitializeACDPClicked clicked");
