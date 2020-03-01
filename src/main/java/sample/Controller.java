@@ -11,9 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import leijnse.info.AcdpAccessor;
-import leijnse.info.ExtractPictureMetaData;
 import leijnse.info.ImageRow;
-import leijnse.info.PictureMetaData;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,13 +24,19 @@ public class Controller {
     @FXML
     private ListView listItems = new ListView();
     DirectoryChooser directoryChooser = new DirectoryChooser();
-    File choosedDirectory =new File("dummy");
+    File choosedAcdpDirectory =new File("dummy");
+    File choosedImageDirectory =new File("dummy");
+
 
     @FXML
     private TextField txtSearchKeywords = new TextField();
 
     @FXML
     private Label lblAcdpDirectory = new Label();
+
+    @FXML
+    private Label lblImageDirectory = new Label();
+
 
     @FXML
     private Label lblClickedImage = new Label();
@@ -42,14 +46,26 @@ public class Controller {
 
         System.out.println("Button setAcdpDiretory clicked");
         configuringDirectoryChooser(directoryChooser);
-        choosedDirectory = directoryChooser.showDialog(new Stage());
-        String myChoosenDirectory = choosedDirectory.toPath().toString();
+        choosedAcdpDirectory = directoryChooser.showDialog(new Stage());
+        String myChoosenDirectory = choosedAcdpDirectory.toPath().toString();
         System.out.println("choosedDirectory: " + myChoosenDirectory);
         lblAcdpDirectory.setText(myChoosenDirectory);
         lblClickedImage.setText("");
         Node node = null;
         lblClickedImage.setGraphic(node);
 
+
+    }
+
+    @FXML
+    public void setImageDirectory(Event e){
+
+        System.out.println("Button setImageDiretory clicked");
+        configuringDirectoryChooser(directoryChooser);
+        choosedImageDirectory = directoryChooser.showDialog(new Stage());
+        String myChoosenDirectory = choosedImageDirectory.toPath().toString();
+        System.out.println("choosedDirectory: " + myChoosenDirectory);
+        lblImageDirectory.setText(myChoosenDirectory);
 
     }
 
@@ -88,7 +104,8 @@ public class Controller {
             if (endItemText>0){
                 String myImage = myItemText.substring(0,endItemText);
                 System.out.println(myImage);
-                lblClickedImage.setText(myItemText);
+                // lblClickedImage.setText(myItemText);
+                lblClickedImage.setText("");
                 FileInputStream input = new FileInputStream(myImage);
                 Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
