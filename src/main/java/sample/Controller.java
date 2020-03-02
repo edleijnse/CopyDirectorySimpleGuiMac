@@ -19,6 +19,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Controller {
@@ -97,6 +99,22 @@ public class Controller {
 
 
     }
+
+    @FXML
+    public void createKeywordsFromMicrrosoftVision(Event e) throws IOException {
+        System.out.println("Button createKeywordsFromMicrrosoftVision clicked");
+        String mySubscriptionKey = new String(Files.readAllBytes(Paths.get("/Users/edleijnse/OneDrive/Finanzen/Lizensen/Microsoft/keys/subscriptionKey1")));
+
+        CopyDirectory copyDirectory = new CopyDirectory();
+        copyDirectory.setSubscriptionKey(mySubscriptionKey);
+        String myChoosenImageDirectory = choosedImageDirectory.toPath().toString();
+        String tempDirectory = "/Volumes/MyDrive01/temp";
+
+        copyDirectory.addVisionTagsToFiles(myChoosenImageDirectory,tempDirectory );
+        System.out.println("createKeywordsFromMicrrosoftVision done");
+
+    }
+
 
 
     @FXML

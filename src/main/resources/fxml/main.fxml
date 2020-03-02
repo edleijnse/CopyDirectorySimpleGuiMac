@@ -20,7 +20,7 @@
             <Button fx:id="cmdDirectoryNames" layoutX="58.0" layoutY="146.0" mnemonicParsing="false" onAction="#cmdDirectoryNamesClicked" text="create keywords  from directorynames " />
             <Button fx:id="cmdInitializeACDP" layoutX="59.0" layoutY="106.0" mnemonicParsing="false" onAction="#cmdInitializeACDPClicked" text="initialize ACDP directory - choose empty directory" />
             <Button fx:id="cmdExifData" layoutX="57.0" layoutY="184.0" mnemonicParsing="false" onAction="#cmdExifDataClicked" text="create keywords from EXIF Data" />
-            <Button fx:id="cmdMicrosoftVision" layoutX="59.0" layoutY="225.0" mnemonicParsing="false" text="create keywords from Microsoft Vision" />
+            <Button fx:id="cmdMicrosoftVision" layoutX="59.0" layoutY="225.0" mnemonicParsing="false" onAction="#createKeywordsFromMicrrosoftVision" text="create keywords from Microsoft Vision" />
             <Label layoutX="60.0" layoutY="717.0" text="IMAGINE - helps to find your images again">
                <font>
                   <Font size="48.0" />
