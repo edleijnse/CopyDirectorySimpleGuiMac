@@ -88,7 +88,7 @@ public class Controller {
         listItems.getItems().clear();
         listItems.refresh();
 
-        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", BigInteger.valueOf(0),txtSearchKeywords.getText());
+        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", txtSearchKeywords.getText());
         imageWithSomeKeywords.forEach(imageRow -> {
             listItems.getItems().add(imageRow.getDirectory()+"/"+imageRow.getFile()+", keywords: " + imageRow.getIptcKeywords());
         });
@@ -128,7 +128,7 @@ public class Controller {
         listItems.getItems().clear();
         listItems.refresh();
 
-        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", BigInteger.valueOf(0),txtSearchKeywords.getText());
+        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-",txtSearchKeywords.getText());
         imageWithSomeKeywords.forEach(imageRow -> {
             listItems.getItems().add(imageRow.getDirectory()+"/"+imageRow.getFile()+", keywords: " + imageRow.getIptcKeywords());
         });
@@ -162,7 +162,7 @@ public class Controller {
         listItems.getItems().clear();
         listItems.refresh();
 
-        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", BigInteger.valueOf(0),txtSearchKeywords.getText());
+        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(true,lblAcdpDirectory.getText() + "/layout", "-","-", txtSearchKeywords.getText());
         imageWithSomeKeywords.forEach(imageRow -> {
             listItems.getItems().add(imageRow.getDirectory()+"/"+imageRow.getFile()+", keywords: " + imageRow.getIptcKeywords());
         });
